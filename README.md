@@ -99,3 +99,29 @@ MIT
 ## Original Prompt
 
 The file `PROMPT.md` contains the original requirements and design prompt that was used to generate this repository and its workflow. Refer to it for the full specification and rationale behind the implementation.
+
+## GitHub Action Usage
+
+You can use this Action in any repository with a `docs/` folder containing markdown files. Example workflow:
+
+```yaml
+name: Convert Markdown to PDFs
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  markdown-to-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Convert Markdown to PDFs
+        uses: your-username/markdown-to-pdf-workflow@v1
+```
+
+- Replace `your-username` with your GitHub username or org.
+- The generated PDFs and zip will be available as workflow artifacts.
