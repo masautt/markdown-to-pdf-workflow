@@ -1,0 +1,13 @@
+{
+  "name": "markdown-to-pdf-workflow",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/mdpdf/build-pdfs.mjs"
+  },
+  "dependencies": {
+    "archiver": "^6.0.1",
+    "markdown-it": "^14.1.0",
+    "playwright": "^1.44.0"
+  }
+}

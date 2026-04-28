@@ -1,0 +1,41 @@
+name: Build Markdown PDFs
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+  pull_request:
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  build-pdfs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build PDFs
+        run: node scripts/mdpdf/build-pdfs.mjs
+
+      - name: Zip output
+        run: zip -r markdown-pdfs.zip dist-pdfs
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: markdown-pdfs
+          path: markdown-pdfs.zip
