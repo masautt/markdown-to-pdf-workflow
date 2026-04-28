@@ -93,3 +93,9 @@ npm run build
 ## License
 
 MIT
+
+---
+
+## Original Prompt
+
+The file `PROMPT.md` contains the original requirements and design prompt that was used to generate this repository and its workflow. Refer to it for the full specification and rationale behind the implementation.
