@@ -155,7 +155,6 @@ export async function renderPdf(bodyHtml, outputPath) {
   try {
     const fullHtml = wrapInDocument(bodyHtml);
     await page.setContent(fullHtml, { waitUntil: 'domcontentloaded' });
-    await page.waitForLoadState('networkidle');
     await page.pdf({
       path: outputPath,
       format: 'A4',

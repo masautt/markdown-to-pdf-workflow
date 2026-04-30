@@ -1,26 +1,41 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
 name: 'Markdown to PDF Workflow'
 description: 'Converts all markdown files in ./docs to PDFs and zips them for distribution.'
-author: 'YOUR NAME OR ORG'
+author: 'masautt'
 branding:
   icon: 'file-text'
   color: 'blue'
+inputs:
+  docs_dir:
+    description: 'Directory containing markdown source files'
+    required: false
+    default: 'docs'
+  out_dir:
+    description: 'Directory to write generated PDFs into'
+    required: false
+    default: 'dist-pdfs'
 runs:
   using: 'composite'
   steps:
     - name: Install dependencies
       run: npm ci
+      working-directory: ${{ github.action_path }}
       shell: bash
     - name: Install Playwright Chromium
       run: npx playwright install --with-deps chromium
+      working-directory: ${{ github.action_path }}
       shell: bash
     - name: Build PDFs
-      run: node scripts/mdpdf/build-pdfs.mjs
+      run: node ${{ github.action_path }}/scripts/mdpdf/build-pdfs.mjs
+      env:
+        DOCS_ROOT: ${{ inputs.docs_dir }}
+        OUT_ROOT: ${{ inputs.out_dir }}
       shell: bash
     - name: Zip output
-      run: zip -r markdown-pdfs.zip dist-pdfs
+      run: zip -r markdown-pdfs.zip ${{ inputs.out_dir }}
       shell: bash
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: markdown-pdfs
         path: markdown-pdfs.zip

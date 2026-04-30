@@ -7,8 +7,8 @@ import { embedLocalImages } from './resolve-assets.mjs';
 import { initBrowser, closeBrowser, renderPdf } from './render-pdf.mjs';
 import { createZip } from './create-zip.mjs';
 
-const DOCS_ROOT = 'docs';
-const OUT_ROOT = 'dist-pdfs';
+const DOCS_ROOT = process.env.DOCS_ROOT ?? 'docs';
+const OUT_ROOT = process.env.OUT_ROOT ?? 'dist-pdfs';
 const ZIP_PATH = 'markdown-pdfs.zip';
 
 async function main() {
