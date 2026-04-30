@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
 name: 'Markdown to PDF Workflow'
 description: 'Converts all markdown files in ./docs to PDFs and zips them for distribution.'
 author: 'masautt'
