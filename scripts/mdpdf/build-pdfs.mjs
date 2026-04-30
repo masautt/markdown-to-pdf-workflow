@@ -16,7 +16,7 @@ async function main() {
 
   let mdFiles;
   try {
-    mdFiles = await discoverMarkdownFiles();
+    mdFiles = await discoverMarkdownFiles(DOCS_ROOT);
   } catch (err) {
     console.error(`ERROR: ${err.message}`);
     process.exit(1);

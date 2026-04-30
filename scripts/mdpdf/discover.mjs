@@ -1,21 +1,20 @@
 import { readdir, stat } from 'fs/promises';
 import { join } from 'path';
 
-const DOCS_ROOT = 'docs';
 const EXCLUDED = new Set(['node_modules', '.git', 'dist-pdfs']);
 
-export async function discoverMarkdownFiles() {
+export async function discoverMarkdownFiles(docsRoot) {
   try {
-    await stat(DOCS_ROOT);
+    await stat(docsRoot);
   } catch {
-    throw new Error('./docs directory does not exist');
+    throw new Error(`./${docsRoot} directory does not exist`);
   }
 
   const files = [];
-  await walk(DOCS_ROOT, files);
+  await walk(docsRoot, files);
 
   if (files.length === 0) {
-    throw new Error('No markdown files found under ./docs');
+    throw new Error(`No markdown files found under ./${docsRoot}`);
   }
 
   return files;
